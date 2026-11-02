@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Agentic SDLC Capstone
 
 An eight-phase software delivery pipeline driven by specialized GitHub Copilot agents, with human approval gates, a tamper-evident audit log, a security guard hook, and two real integrations: the Atlassian Confluence MCP server (requirements) and the GitHub MCP server (pull request).
@@ -53,3 +54,12 @@ Copilot calls the MCP tools, not Python. (MCP evidence is currently switched off
 ## Requirements
 
 Python 3.11 or newer. The runtime uses only the standard library. Tests need `pytest` (`requirements-dev.txt`).
+=======
+# Agentic SDLC Pipeline
+
+An AI-powered Software Development Life Cycle (SDLC) automation project using GitHub Copilot custom agents, an orchestrator, and GitHub MCP.
+
+## Objective
+
+Automate SDLC phases with human approval checkpoints and controlled pull request creation.
+>>>>>>> 38f97b920181a92f975109d329459ca5bbc08614
