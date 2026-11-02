@@ -1,0 +1,14 @@
+[project]
+name = "agentic-sdlc-orchestrator"
+version = "0.1.0"
+description = "Governed eight-phase SDLC orchestrator for specialized GitHub Copilot agents"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+

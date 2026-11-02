@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+
+# Secrets and local configuration - never commit
+.env
+.env.*
+*.pem
+*.key
+.vscode/mcp.local.json
+
+# Runtime artifacts that must not be committed
+sdlc/.lock
+sdlc/*.tmp
+sdlc/state.json.tmp
+*.log
+!sdlc/audit.log.jsonl
+
+# Editor / OS
+.DS_Store
+.idea/

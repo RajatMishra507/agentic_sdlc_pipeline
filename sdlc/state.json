@@ -1,0 +1,177 @@
+{
+  "checksum": "714a0feabc913fb10ad3d6bca44040c8cb38de9214348828306e5d6c2435da2f",
+  "created_at": "2026-10-22T12:01:03+00:00",
+  "phases": {
+    "architecture": {
+      "approval": {
+        "approved_at": "2026-10-22T17:51:07+00:00",
+        "approved_hashes": {
+          "artifacts/architecture.md": "860b0b2b9f1942bce9d9f8126e52820fee00bd21b484b818e567f6251bfd4b53"
+        },
+        "approver": "Rajat-Mishra",
+        "comment": "",
+        "method": "human-confirmation"
+      },
+      "artifact_hashes": {
+        "artifacts/architecture.md": "860b0b2b9f1942bce9d9f8126e52820fee00bd21b484b818e567f6251bfd4b53"
+      },
+      "pr_authorization": null,
+      "stale_reason": null,
+      "started_at": "2026-10-22T17:49:26+00:00",
+      "started_seq": 59,
+      "status": "approved",
+      "submitted_at": "2026-10-22T17:50:33+00:00"
+    },
+    "design-review": {
+      "approval": {
+        "approved_at": "2026-10-22T17:53:47+00:00",
+        "approved_hashes": {
+          "artifacts/design-review.md": "0920ac3db801460bb8e23898c2ee9b3f031714950e94fbfa723d94c5902d6fb9"
+        },
+        "approver": "Rajat-Mishra",
+        "comment": "",
+        "method": "human-confirmation"
+      },
+      "artifact_hashes": {
+        "artifacts/design-review.md": "0920ac3db801460bb8e23898c2ee9b3f031714950e94fbfa723d94c5902d6fb9"
+      },
+      "pr_authorization": null,
+      "stale_reason": null,
+      "started_at": "2026-10-22T17:51:29+00:00",
+      "started_seq": 62,
+      "status": "approved",
+      "submitted_at": "2026-10-22T17:52:48+00:00"
+    },
+    "implementation": {
+      "approval": {
+        "approved_at": "2026-10-22T17:59:54+00:00",
+        "approved_hashes": {
+          "artifacts/implementation.md": "9785bf6cbdca3c8dcbe1c356a6a15f56b75d233599c36bf7d266b5b65474c048"
+        },
+        "approver": "Rajat-Mishra",
+        "comment": "",
+        "method": "human-confirmation"
+      },
+      "artifact_hashes": {
+        "artifacts/implementation.md": "9785bf6cbdca3c8dcbe1c356a6a15f56b75d233599c36bf7d266b5b65474c048"
+      },
+      "pr_authorization": null,
+      "stale_reason": null,
+      "started_at": "2026-10-22T17:57:40+00:00",
+      "started_seq": 69,
+      "status": "approved",
+      "submitted_at": "2026-10-22T17:59:22+00:00"
+    },
+    "planning": {
+      "approval": {
+        "approved_at": "2026-10-22T17:57:08+00:00",
+        "approved_hashes": {
+          "artifacts/plan.md": "8dd3aa774fd297f4c2bfc06214b8d46b5964427dd186010002e386cfa90461b4"
+        },
+        "approver": "Rajat-Mishra",
+        "comment": "",
+        "method": "human-confirmation"
+      },
+      "artifact_hashes": {
+        "artifacts/plan.md": "8dd3aa774fd297f4c2bfc06214b8d46b5964427dd186010002e386cfa90461b4"
+      },
+      "pr_authorization": null,
+      "stale_reason": null,
+      "started_at": "2026-10-22T17:55:22+00:00",
+      "started_seq": 66,
+      "status": "approved",
+      "submitted_at": "2026-10-22T17:56:39+00:00"
+    },
+    "pr": {
+      "approval": {
+        "approved_at": "2026-10-29T06:17:08+00:00",
+        "approved_hashes": {
+          "artifacts/pr.md": "bdfc312f8a83a50f9b08d71a4bd07bdbc4f642814a452f05b9371cd29caa306b"
+        },
+        "approver": "Rajat-Mishra",
+        "comment": "",
+        "method": "human-confirmation"
+      },
+      "artifact_hashes": {
+        "artifacts/pr.md": "bdfc312f8a83a50f9b08d71a4bd07bdbc4f642814a452f05b9371cd29caa306b"
+      },
+      "pr_authorization": {
+        "audit_seq": 114,
+        "authorized_at": "2026-10-29T06:06:05+00:00",
+        "authorized_by": "Rajat-Mishra",
+        "base": "main",
+        "body_digest": "8f5ddc738a5e06d3670dea9bfc6ba7ce5454f2ed182e5ac82293bbdf8cc168ea",
+        "head": "feature/todo-cli-20261029060347-77b34c",
+        "repo": "RajatMishra507/agentic_sdlc_pipeline"
+      },
+      "stale_reason": null,
+      "started_at": "2026-10-22T19:04:23+00:00",
+      "started_seq": 91,
+      "status": "approved",
+      "submitted_at": "2026-10-29T06:15:55+00:00"
+    },
+    "requirements": {
+      "approval": {
+        "approved_at": "2026-10-22T17:49:03+00:00",
+        "approved_hashes": {
+          "artifacts/requirements.md": "9596b22ce1f6e00a20f46582a286ca156af0d80debdb988cf2b44fa709608cd2"
+        },
+        "approver": "Rajat-Mishra",
+        "comment": "",
+        "method": "human-confirmation"
+      },
+      "artifact_hashes": {
+        "artifacts/requirements.md": "9596b22ce1f6e00a20f46582a286ca156af0d80debdb988cf2b44fa709608cd2"
+      },
+      "pr_authorization": null,
+      "stale_reason": null,
+      "started_at": "2026-10-22T12:03:46+00:00",
+      "started_seq": 52,
+      "status": "approved",
+      "submitted_at": "2026-10-22T17:47:58+00:00"
+    },
+    "review": {
+      "approval": {
+        "approved_at": "2026-10-22T18:02:38+00:00",
+        "approved_hashes": {
+          "artifacts/review.md": "a0139a1ce9217d1b575eeeb1dc512e79c7fad3ce0e44a70f2a369974e7d3f4b9"
+        },
+        "approver": "Rajat-Mishra",
+        "comment": "",
+        "method": "human-confirmation"
+      },
+      "artifact_hashes": {
+        "artifacts/review.md": "a0139a1ce9217d1b575eeeb1dc512e79c7fad3ce0e44a70f2a369974e7d3f4b9"
+      },
+      "pr_authorization": null,
+      "stale_reason": null,
+      "started_at": "2026-10-22T18:00:19+00:00",
+      "started_seq": 73,
+      "status": "approved",
+      "submitted_at": "2026-10-22T18:01:59+00:00"
+    },
+    "verify": {
+      "approval": {
+        "approved_at": "2026-10-22T18:43:24+00:00",
+        "approved_hashes": {
+          "artifacts/verification.md": "097d42d368aa6cb55a822fde88f2e7182e5417b1fc48adb5782953cbd6e06e8d"
+        },
+        "approver": "Rajat-Mishra",
+        "comment": "",
+        "method": "human-confirmation"
+      },
+      "artifact_hashes": {
+        "artifacts/verification.md": "097d42d368aa6cb55a822fde88f2e7182e5417b1fc48adb5782953cbd6e06e8d"
+      },
+      "pr_authorization": null,
+      "stale_reason": null,
+      "started_at": "2026-10-22T18:02:58+00:00",
+      "started_seq": 77,
+      "status": "approved",
+      "submitted_at": "2026-10-22T18:42:27+00:00"
+    }
+  },
+  "revision": 50,
+  "schema_version": 1,
+  "updated_at": "2026-10-29T06:17:08+00:00"
+}

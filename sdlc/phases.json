@@ -1,0 +1,267 @@
+{
+  "schema_version": 1,
+  "integrations": {
+    "mcp_evidence": true
+  },
+  "source_globs": [
+    "todo/**",
+    "tests/**",
+    "tools/**",
+    "hooks/**",
+    "orchestrator.py",
+    "requirements.txt",
+    "requirements-dev.txt",
+    "pyproject.toml"
+  ],
+  "protected_paths": [
+    "sdlc/**",
+    "orchestrator.py",
+    "hooks/**",
+    "tools/**",
+    "tests/test_orchestrator.py",
+    "tests/test_guard.py",
+    "docs/**",
+    ".git/**",
+    ".vscode/**",
+    ".github/**",
+    "pyproject.toml",
+    "requirements-dev.txt",
+    ".gitignore",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "evidence_tools": {
+    "confluence": ["(?i)confluence|atlassian"],
+    "github_pr_created": ["(?i)create_pull_request"]
+  },
+  "phases": [
+    {
+      "id": "requirements",
+      "order": 1,
+      "name": "Requirements",
+      "agent": "requirements",
+      "purpose": "Retrieve the real user stories from Confluence through the Atlassian MCP server and turn them into testable requirements.",
+      "prerequisites": [],
+      "consumes": [],
+      "external_inputs": ["Confluence page URL or search terms supplied by the human", "Atlassian MCP server (read-only use)"],
+      "outputs": [
+        {
+          "path": "artifacts/requirements.md",
+          "description": "Requirements derived from the retrieved Confluence user stories, with evidence references",
+          "min_bytes": 400,
+          "required_sections": [
+            "# Requirements",
+            "## Source User Stories",
+            "## Functional Requirements",
+            "## Non-Functional Requirements",
+            "## Acceptance Criteria",
+            "## Assumptions and Open Questions"
+          ],
+          "mcp_sections": ["## Evidence"],
+          "mcp_patterns": ["(?m)^Confluence-URL:\\s*https://\\S+\\s*$", "(?m)^Evidence-ID:\\s*\\d+\\s*$"]
+        }
+      ],
+      "validation_rules": [
+        "all required sections present; no placeholders or secrets",
+        "every Evidence-ID refers to an audit-log entry recorded by the guard hook for an Atlassian/Confluence MCP call made after this phase started",
+        "every Confluence-URL appears in the result of a referenced MCP call"
+      ],
+      "completion_conditions": ["submit passes validation", "a human approves the exact submitted content"],
+      "approval_required": true,
+      "evidence": "confluence"
+    },
+    {
+      "id": "architecture",
+      "order": 2,
+      "name": "Architecture",
+      "agent": "architecture",
+      "purpose": "Design the solution that satisfies the approved requirements.",
+      "prerequisites": ["requirements"],
+      "consumes": ["artifacts/requirements.md"],
+      "external_inputs": [],
+      "outputs": [
+        {
+          "path": "artifacts/architecture.md",
+          "description": "Architecture with requirement traceability",
+          "min_bytes": 500,
+          "required_sections": [
+            "# Architecture",
+            "## Context",
+            "## Components",
+            "## Data and Interfaces",
+            "## Security Considerations",
+            "## Decisions and Trade-offs",
+            "## Traceability"
+          ]
+        }
+      ],
+      "validation_rules": ["all required sections present; no placeholders or secrets"],
+      "completion_conditions": ["submit passes validation", "a human approves the exact submitted content"],
+      "approval_required": true
+    },
+    {
+      "id": "design-review",
+      "order": 3,
+      "name": "Design Review",
+      "agent": "design-review",
+      "purpose": "Independently critique the architecture against the requirements before planning.",
+      "prerequisites": ["architecture"],
+      "consumes": ["artifacts/requirements.md", "artifacts/architecture.md"],
+      "external_inputs": [],
+      "outputs": [
+        {
+          "path": "artifacts/design-review.md",
+          "description": "Design review findings and verdict",
+          "min_bytes": 300,
+          "required_sections": ["# Design Review", "## Scope Reviewed", "## Findings", "## Risks", "## Verdict"],
+          "required_patterns": ["(?im)^Verdict:\\s*(APPROVED|APPROVED_WITH_CONDITIONS)\\s*$"]
+        }
+      ],
+      "validation_rules": ["all required sections present", "'Verdict: CHANGES_REQUESTED' blocks submission"],
+      "completion_conditions": ["submit passes validation", "a human approves the exact submitted content"],
+      "approval_required": true
+    },
+    {
+      "id": "planning",
+      "order": 4,
+      "name": "Planning",
+      "agent": "planning",
+      "purpose": "Break the approved design into ordered, testable implementation tasks.",
+      "prerequisites": ["design-review"],
+      "consumes": ["artifacts/requirements.md", "artifacts/architecture.md", "artifacts/design-review.md"],
+      "external_inputs": [],
+      "outputs": [
+        {
+          "path": "artifacts/plan.md",
+          "description": "Implementation plan with test strategy and definition of done",
+          "min_bytes": 400,
+          "required_sections": [
+            "# Implementation Plan",
+            "## Work Breakdown",
+            "## Test Strategy",
+            "## Risks and Mitigations",
+            "## Definition of Done"
+          ]
+        }
+      ],
+      "validation_rules": ["all required sections present; no placeholders or secrets"],
+      "completion_conditions": ["submit passes validation", "a human approves the exact submitted content"],
+      "approval_required": true
+    },
+    {
+      "id": "implementation",
+      "order": 5,
+      "name": "Implementation",
+      "agent": "implementation",
+      "purpose": "Implement the approved plan in todo/ with tests in tests/test_todo.py and report what changed.",
+      "prerequisites": ["planning"],
+      "consumes": ["artifacts/requirements.md", "artifacts/architecture.md", "artifacts/plan.md"],
+      "external_inputs": [],
+      "outputs": [
+        {
+          "path": "artifacts/implementation.md",
+          "description": "Report of code changes, tests, and deviations from the plan",
+          "min_bytes": 300,
+          "required_sections": [
+            "# Implementation Report",
+            "## Summary of Changes",
+            "## Changed Files",
+            "## Tests Added or Updated",
+            "## Deviations from Plan"
+          ]
+        }
+      ],
+      "validation_rules": ["all required sections present; no placeholders or secrets", "code writes are limited to write_globs (enforced by the guard hook)"],
+      "completion_conditions": ["submit passes validation", "a human approves the exact submitted content"],
+      "approval_required": true,
+      "write_globs": ["todo/**", "tests/test_todo.py", "requirements.txt"]
+    },
+    {
+      "id": "review",
+      "order": 6,
+      "name": "Review",
+      "agent": "review",
+      "purpose": "Review the implementation for correctness, security, and conformance to the plan.",
+      "prerequisites": ["implementation"],
+      "consumes": ["artifacts/plan.md", "artifacts/implementation.md"],
+      "external_inputs": [],
+      "outputs": [
+        {
+          "path": "artifacts/review.md",
+          "description": "Code review findings and verdict",
+          "min_bytes": 300,
+          "required_sections": ["# Review Report", "## Scope", "## Findings", "## Security Review", "## Verdict"],
+          "required_patterns": ["(?im)^Verdict:\\s*(APPROVED|APPROVED_WITH_COMMENTS)\\s*$"]
+        }
+      ],
+      "validation_rules": ["all required sections present", "'Verdict: CHANGES_REQUESTED' blocks submission"],
+      "completion_conditions": ["submit passes validation", "a human approves the exact submitted content"],
+      "approval_required": true
+    },
+    {
+      "id": "verify",
+      "order": 7,
+      "name": "Verification",
+      "agent": "verify",
+      "purpose": "Run the real test suite through 'orchestrator.py run-checks' and record evidence that requirements are met.",
+      "prerequisites": ["review"],
+      "consumes": ["artifacts/requirements.md", "artifacts/review.md"],
+      "external_inputs": [],
+      "outputs": [
+        {
+          "path": "artifacts/verification.md",
+          "description": "Verification evidence and requirement coverage",
+          "min_bytes": 300,
+          "required_sections": ["# Verification Report", "## Commands Executed", "## Results", "## Requirement Coverage", "## Evidence", "## Verdict"],
+          "required_patterns": ["(?im)^Verdict:\\s*PASS\\s*$", "(?m)^Evidence-ID:\\s*\\d+\\s*$"]
+        }
+      ],
+      "validation_rules": [
+        "all required sections present",
+        "Evidence-ID refers to a passing 'checks.run' audit entry made after this phase started",
+        "the evidence's source digest equals the current source tree (code unchanged since the tests ran)"
+      ],
+      "completion_conditions": ["submit passes validation", "a human approves the exact submitted content"],
+      "approval_required": true,
+      "evidence": "checks"
+    },
+    {
+      "id": "pr",
+      "order": 8,
+      "name": "Pull Request",
+      "agent": "pr",
+      "purpose": "Prepare the pull request, and create it through the GitHub MCP server only after a human authorizes it.",
+      "prerequisites": ["verify"],
+      "consumes": ["artifacts/requirements.md", "artifacts/review.md", "artifacts/verification.md"],
+      "external_inputs": ["Repository, head branch, and base branch chosen by the human", "GitHub MCP server"],
+      "outputs": [
+        {
+          "path": "artifacts/pr.md",
+          "description": "Pull request title, description, authorization record, and created PR evidence",
+          "min_bytes": 300,
+          "required_sections": [
+            "# Pull Request",
+            "## Title",
+            "## Description",
+            "## Linked Work Items",
+            "## Verification Summary",
+            "## Reviewer Checklist"
+          ],
+          "mcp_sections": ["## Pull Request Record"],
+          "mcp_patterns": [
+            "(?m)^Repository:\\s*[\\w.-]+/[\\w.-]+\\s*$",
+            "(?m)^Head:\\s*\\S+\\s*$",
+            "(?m)^Base:\\s*\\S+\\s*$"
+          ]
+        }
+      ],
+      "validation_rules": [
+        "all required sections present; no placeholders or secrets",
+        "submit additionally requires PR-URL and PR-Evidence-ID referring to a create_pull_request MCP call recorded by the guard hook after the human authorization"
+      ],
+      "completion_conditions": ["a human ran 'authorize-pr'", "the PR was created through GitHub MCP", "submit passes validation", "a human approves; merging remains human-only"],
+      "approval_required": true,
+      "evidence": "github_pr"
+    }
+  ]
+}

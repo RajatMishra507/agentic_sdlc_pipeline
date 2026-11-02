@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "hooks": {
+    "preToolUse": [
+      {
+        "type": "command",
+        "bash": "python3 hooks/guard.py pre",
+        "powershell": "python hooks/guard.py pre",
+        "cwd": ".",
+        "timeoutSec": 10
+      }
+    ],
+    "postToolUse": [
+      {
+        "type": "command",
+        "bash": "python3 hooks/guard.py post",
+        "powershell": "python hooks/guard.py post",
+        "cwd": ".",
+        "timeoutSec": 10
+      }
+    ]
+  }
+}
